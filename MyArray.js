@@ -55,19 +55,21 @@ function main() {
 	arr.push(15);
 	arr.push(19);
 	arr.push(45);
-  arr.push(10);
+	arr.push(10);
 
-  arr.pop();
-  arr.pop();
-  arr.pop();
+	arr.pop();
+	arr.pop();
+	arr.pop();
 
-  console.log(arr.get(0))
-  for (let i = 0; i <= arr.length; i++){
-    console.log(arr.remove(i))
-  }
+	console.log(arr.get(0))
 
-  arr.push("tauhida");
-  console.log(arr.get(0))
+	const oldLength = arr.length;
+	for (let i = 0; i < oldLength; i++) {
+		arr.pop()
+	}
+
+	arr.push("tauhida");
+	console.log(arr.get(0))
 	console.log(arr);
 }
 
