@@ -1,5 +1,5 @@
-import { Memory } from './Memory'
-
+const MyMemory = require('./Memory')
+const Memory = new MyMemory()
 class Array {
 	constructor() {
 		this.length = 0;
@@ -9,14 +9,14 @@ class Array {
 
 	resize(size) {
 		const oldLocation = this.location;
-		this.location = Memory.head;
-		Memory.allocate(size);
+		this.location = Memory.allocate(size);
 		Memory.copy(this.location, oldLocation, this.length);
 		Memory.free(oldLocation);
+		this.capacity = size;
 	}
 
 	get(index) {
-		return Memory.get(index);
+		return Memory.get(this.location + index);
 	}
 
 	pop() {
@@ -26,8 +26,8 @@ class Array {
 	}
 
 	insert(index, value) {
-		if (this.length >= this.capacity) this.resize(this.length * 2);
-		Memory.copy(this.location + index + 1, this.location + index, this.length - index - 1)
+		if (this.length >= this.capacity) this.resize((this.length + 1) * 2);
+		Memory.copy(this.location + index + 1, this.location + index, this.length - index)
 		Memory.set(this.location + index, value);
 		this.length++;
 	}
@@ -40,11 +40,29 @@ class Array {
 	}
 
 	push(value) {
-    if (this.length >= this.capacity) this.resize(this.length * 2);
-    Memory.set(this.location, value);
+    if (this.length >= this.capacity) this.resize((this.length + 1) * 2);
+    Memory.set(this.location + this.length, value);
 		this.length++;
 	}
 
 }
 
-export default Array;
+function main() {
+  let arr = new Array();
+  console.log('created array', arr)
+  let arr2 = new Array();
+  console.log('created array2', arr2);
+  arr2.push(2)
+  console.log('pushed 2 to array2: ', arr2);
+
+  console.log('get index 0 from arr2', arr2.get(0))
+
+  arr.push(3);
+  console.log('pushed 3', arr);
+  arr.push(4);
+  console.log('pushed 4', arr);
+  console.log(arr.get(0));
+  console.log(arr.get(1));
+}
+
+main();
