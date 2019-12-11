@@ -40,29 +40,35 @@ class Array {
 	}
 
 	push(value) {
-    if (this.length >= this.capacity) this.resize((this.length + 1) * 2);
-    Memory.set(this.location + this.length, value);
+		if (this.length >= this.capacity) this.resize((this.length + 1) * 2);
+		Memory.set(this.location + this.length, value);
 		this.length++;
 	}
 
 }
 
 function main() {
-  let arr = new Array();
-  console.log('created array', arr)
-  let arr2 = new Array();
-  console.log('created array2', arr2);
-  arr2.push(2)
-  console.log('pushed 2 to array2: ', arr2);
+	let arr = new Array();
+	arr.push(3);
 
-  console.log('get index 0 from arr2', arr2.get(0))
+	arr.push(5);
+	arr.push(15);
+	arr.push(19);
+	arr.push(45);
+  arr.push(10);
 
-  arr.push(3);
-  console.log('pushed 3', arr);
-  arr.push(4);
-  console.log('pushed 4', arr);
-  console.log(arr.get(0));
-  console.log(arr.get(1));
+  arr.pop();
+  arr.pop();
+  arr.pop();
+
+  console.log(arr.get(0))
+  for (let i = 0; i <= arr.length; i++){
+    console.log(arr.remove(i))
+  }
+
+  arr.push("tauhida");
+  console.log(arr.get(0))
+	console.log(arr);
 }
 
 main();
